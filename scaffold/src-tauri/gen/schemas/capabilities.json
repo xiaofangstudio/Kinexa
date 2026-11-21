@@ -1,0 +1,1 @@
+{"default":{"identifier":"default","description":"Kinexa 桌面端默认权限：核心能力 + 原生文件对话框","local":true,"windows":["main"],"permissions":["core:default","dialog:default"]}}

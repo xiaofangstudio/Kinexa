@@ -1,0 +1,54 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Kinexa",
+  "version": "0.1.0",
+  "identifier": "studio.xiaofang.kinexa",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://localhost:1423",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Kinexa",
+        "width": 1440,
+        "height": 900,
+        "minWidth": 1080,
+        "minHeight": 700,
+        "center": true,
+        "resizable": true,
+        "decorations": true,
+        "dragDropEnabled": false,
+        "visible": true
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; img-src 'self' asset: data: blob:; style-src 'self' 'unsafe-inline'; script-src 'self'"
+    }
+  },
+  "bundle": {
+    "active": false,
+    "targets": ["nsis"],
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.ico"
+    ],
+    "publisher": "小方工作室",
+    "copyright": "小方工作室 · MIT License",
+    "category": "GraphicsAndDesign",
+    "shortDescription": "全中文、免费开源的二维动画与矢量动画软件",
+    "fileAssociations": [
+      {
+        "ext": ["kin"],
+        "name": "Kinexa 动画工程",
+        "description": "小方工作室 Kinexa 二维动画工程文件",
+        "role": "Editor"
+      }
+    ]
+  }
+}

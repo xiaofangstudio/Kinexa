@@ -1,0 +1,88 @@
+/**
+ * 画布舞台。
+ * 视口底纹 + 居中纸面；纸面本身由 Rust 合成，前端只负责贴像素。
+ */
+
+.kx-stage-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  padding: var(--kx-sp-4);
+  background-color: var(--kx-canvas-bg);
+  background-image:
+    linear-gradient(45deg, var(--kx-editor-mat) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--kx-editor-mat) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--kx-editor-mat) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--kx-editor-mat) 75%);
+  background-size: 20px 20px;
+  background-position:
+    0 0,
+    0 10px,
+    10px -10px,
+    -10px 0;
+  touch-action: none;
+  cursor: default;
+}
+
+.kx-stage-wrap.is-draw {
+  cursor: none;
+}
+
+.kx-stage-wrap.is-hand {
+  cursor: grab;
+}
+
+.kx-stage-wrap.is-space {
+  cursor: grab;
+}
+
+.kx-stage-wrap.is-panning {
+  cursor: grabbing;
+}
+
+/* 纸面：透明棋盘在纸面之下，白底工程由图层自己的白色盖住 */
+.kx-stage {
+  position: absolute;
+  left: 0;
+  top: 0;
+  flex: none;
+  transform-origin: 0 0;
+  will-change: transform;
+  background-color: var(--kx-paper);
+  background-image:
+    linear-gradient(45deg, var(--kx-checker) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--kx-checker) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--kx-checker) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--kx-checker) 75%);
+  background-size: 16px 16px;
+  background-position:
+    0 0,
+    0 8px,
+    8px -8px,
+    -8px 0;
+  box-shadow: var(--kx-shadow-sm), var(--kx-shadow-lg);
+  outline: 1px solid color-mix(in srgb, var(--kx-text) 8%, transparent);
+}
+
+.kx-stage-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  image-rendering: auto;
+  touch-action: none;
+}
+
+/* 笔尖圈：外黑内白两圈，在任何底图上都看得清 */
+.kx-brush-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 6;
+  display: none;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.92);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.62);
+  transform: translate(-50%, -50%);
+}

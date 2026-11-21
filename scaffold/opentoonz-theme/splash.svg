@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="610" height="344" viewBox="0 0 610 344">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fffaf0"/>
+      <stop offset="0.55" stop-color="#fff3d6"/>
+      <stop offset="1" stop-color="#ffe8b8"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2a2118"/>
+      <stop offset="1" stop-color="#4a3a28"/>
+    </linearGradient>
+  </defs>
+  <rect width="610" height="344" fill="url(#bg)"/>
+  <circle cx="542" cy="70" r="54" fill="#ffe29a" opacity="0.55"/>
+  <circle cx="70" cy="300" r="78" fill="#fff6e3" opacity="0.8"/>
+  <path d="M0 250 C 120 190, 220 310, 330 240 S 520 170, 610 220" fill="none" stroke="#e0a83a" stroke-width="3" opacity="0.55"/>
+  <g transform="translate(44 92)">
+    <rect x="0" y="0" width="42" height="42" rx="11" fill="#ffe29a"/>
+    <text x="21" y="31" font-family="Segoe UI, Microsoft YaHei UI, sans-serif" font-size="30" font-weight="800" fill="#2a2118" text-anchor="middle">K</text>
+    <text x="58" y="33" font-family="Segoe UI, Microsoft YaHei UI, sans-serif" font-size="38" font-weight="800" fill="url(#ink)">Kinexa</text>
+    <text x="2" y="78" font-family="Segoe UI, Microsoft YaHei UI, sans-serif" font-size="14" fill="#7a6748">二维动画 · 逐帧与矢量</text>
+    <text x="2" y="154" font-family="Segoe UI, Microsoft YaHei UI, sans-serif" font-size="11" fill="#a08a63">小方工作室 · 功能优先 · 全中文</text>
+  </g>
+  <g transform="translate(430 250)">
+    <rect width="132" height="8" rx="4" fill="#2a2118" opacity="0.12"/>
+    <rect width="86" height="8" rx="4" fill="#e0a83a" opacity="0.8"/>
+  </g>
+</svg>

@@ -1,0 +1,61 @@
+.kx-modal-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: var(--kx-sp-5);
+  background: var(--kx-mask);
+  animation: kx-mask-in var(--kx-dur) var(--kx-ease);
+}
+
+@keyframes kx-mask-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.kx-modal {
+  max-width: 100%;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--kx-surface);
+  border: 1px solid var(--kx-border);
+  border-radius: var(--kx-r-lg);
+  box-shadow:
+    inset 0 1px 0 var(--kx-fx-hi),
+    var(--kx-shadow-lg);
+  animation: kx-modal-in var(--kx-dur) var(--kx-ease-out);
+}
+
+@keyframes kx-modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+.kx-modal-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kx-sp-3);
+  padding: var(--kx-sp-3) var(--kx-sp-3) var(--kx-sp-2) var(--kx-sp-5);
+}
+
+.kx-modal-title {
+  font-size: var(--kx-fs-lg);
+  font-weight: 600;
+}
+
+.kx-modal-body {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 0 var(--kx-sp-5) var(--kx-sp-5);
+  font-size: var(--kx-fs-sm);
+  color: var(--kx-text-2);
+  line-height: 1.8;
+}

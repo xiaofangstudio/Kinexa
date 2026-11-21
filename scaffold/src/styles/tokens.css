@@ -1,0 +1,175 @@
+/**
+ * Kinexa 设计令牌 —— 全应用唯一配色权威。
+ *
+ * 规矩（见 AGENTS.md）：
+ * - 只认这个文件，组件里不许写死颜色。
+ * - 全应用两味：暖白纸面 + 品牌暖黄。暖黄是唯一强调色。
+ * - 严禁紫色、黑紫、蓝紫；严禁任何非小方色的第二强调色；状态色只准用在状态上。
+ * - 圆角统一 6 / 8 / 12 / 16 / 999，间距走 4 的倍数。
+ * - 极度扁平：靠 1px 描边与背景层级分区，不用重阴影、不用强渐变。
+ */
+
+:root {
+  --kx-font: "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", "PingFang SC",
+    system-ui, -apple-system, sans-serif;
+  --kx-font-num: "Segoe UI", "Microsoft YaHei UI", system-ui, sans-serif;
+
+  /* 圆角：小控件 6，输入与按钮 8，面板 12，大容器 16，胶囊 999 */
+  --kx-r-xs: 6px;
+  --kx-r-sm: 8px;
+  --kx-r-md: 12px;
+  --kx-r-lg: 16px;
+  --kx-r-full: 999px;
+
+  /* 间距节奏（4 的倍数） */
+  --kx-sp-1: 4px;
+  --kx-sp-2: 8px;
+  --kx-sp-3: 12px;
+  --kx-sp-4: 16px;
+  --kx-sp-5: 24px;
+  --kx-sp-6: 32px;
+  --kx-sp-7: 48px;
+
+  /* 字号层级 */
+  --kx-fs-xs: 12px;
+  --kx-fs-sm: 13px;
+  --kx-fs-md: 14px;
+  --kx-fs-lg: 16px;
+  --kx-fs-xl: 20px;
+  --kx-fs-2xl: 26px;
+
+  /* 控件尺寸 */
+  --kx-h-ctl: 32px;
+  --kx-h-ctl-lg: 38px;
+
+  /* 动效：三味缓动 + 分档时长 */
+  --kx-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --kx-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --kx-dur-fast: 120ms;
+  --kx-dur: 180ms;
+  --kx-dur-slow: 280ms;
+}
+
+/* ---------- 浅色（默认） ---------- */
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* 暖白纸面：白是主体，暖黄只在强调处出现。 */
+  --kx-bg: #fdfcf8;
+  --kx-surface: #ffffff;
+  --kx-surface-2: #f7f4ec;
+  --kx-surface-3: #efeae0;
+
+  --kx-border: #e6e1d6;
+  --kx-border-strong: #d6d0c2;
+
+  --kx-text: #262420;
+  --kx-text-2: #6a675f;
+  --kx-text-3: #9a958b;
+
+  --kx-hover: rgba(40, 36, 28, 0.05);
+  --kx-pressed: rgba(40, 36, 28, 0.09);
+
+  /* 暖黄：奶油黄，不是金箔。压深后做文字与描边。 */
+  --kx-accent: #7a5a00;
+  --kx-accent-hover: #644a00;
+  --kx-accent-active: #523c00;
+  --kx-accent-soft: rgba(255, 226, 154, 0.28);
+  --kx-accent-ring: rgba(255, 226, 154, 0.55);
+  --kx-accent-ink: #2b2205;
+  --kx-brand: #ffe29a;
+  --kx-brand-hover: #ffedbb;
+  --kx-brand-active: #f2d08a;
+
+  --kx-canvas-bg: #f2efe8;
+  --kx-checker: #e5dfd3;
+  --kx-paper: #ffffff;
+  --kx-grid-line: rgba(50, 44, 32, 0.1);
+  --kx-editor-mat: rgba(80, 70, 48, 0.06);
+
+  --kx-danger: #c94d38;
+  --kx-danger-soft: rgba(201, 77, 56, 0.08);
+  --kx-on-danger: #fff8f2;
+
+  --kx-toast-bg: rgba(38, 36, 32, 0.93);
+  --kx-toast-ink: #fffaf0;
+  --kx-mask: rgba(30, 28, 24, 0.42);
+
+  --kx-shadow-xs: 0 1px 1px rgba(40, 36, 28, 0.05);
+  --kx-shadow-sm: 0 1px 2px rgba(40, 36, 28, 0.06);
+  --kx-shadow-md: 0 6px 20px rgba(40, 36, 28, 0.1);
+  --kx-shadow-lg: 0 20px 56px rgba(32, 28, 22, 0.14);
+
+  --kx-fx-hi: rgba(255, 255, 255, 0.7);
+  --kx-fx-hi-soft: rgba(255, 255, 255, 0.18);
+  --kx-fx-lo: rgba(40, 36, 28, 0.05);
+
+  /* 磨砂底纹：只在磨砂开启时透出来，给毛玻璃一点可读的层次。 */
+  --kx-frost-tint-1: rgba(255, 226, 154, 0.3);
+  --kx-frost-tint-2: rgba(214, 204, 184, 0.34);
+  --kx-frost-tint-3: rgba(255, 255, 255, 0.5);
+  --kx-ambient-1: rgba(255, 226, 154, 0.5);
+  --kx-ambient-2: rgba(255, 240, 206, 0.42);
+}
+
+/* ---------- 深色 ---------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* 中性炭黑：不用棕金，不发紫。 */
+  --kx-bg: #161616;
+  --kx-surface: #1e1e1e;
+  --kx-surface-2: #262626;
+  --kx-surface-3: #303030;
+
+  --kx-border: #343434;
+  --kx-border-strong: #474747;
+
+  --kx-text: #f2f0eb;
+  --kx-text-2: #b9b5ad;
+  --kx-text-3: #85817a;
+
+  --kx-hover: rgba(255, 255, 255, 0.06);
+  --kx-pressed: rgba(255, 255, 255, 0.1);
+
+  /* 深色下用奶油黄，字用深灰，不用纯黑。 */
+  --kx-accent: #ffe4a8;
+  --kx-accent-hover: #ffefc9;
+  --kx-accent-active: #f2d190;
+  --kx-accent-soft: rgba(255, 226, 154, 0.16);
+  --kx-accent-ring: rgba(255, 226, 154, 0.45);
+  --kx-accent-ink: #241d08;
+  --kx-brand: #ffe29a;
+  --kx-brand-hover: #ffedbb;
+  --kx-brand-active: #f2d08a;
+
+  --kx-canvas-bg: #101010;
+  --kx-checker: #262626;
+  --kx-paper: #fffdf8;
+  --kx-grid-line: rgba(255, 255, 255, 0.12);
+  --kx-editor-mat: rgba(255, 255, 255, 0.05);
+
+  --kx-danger: #e2766f;
+  --kx-danger-soft: rgba(226, 118, 111, 0.12);
+  --kx-on-danger: #fff8f2;
+
+  --kx-toast-bg: rgba(242, 240, 235, 0.95);
+  --kx-toast-ink: #1c1c1c;
+  --kx-mask: rgba(0, 0, 0, 0.62);
+
+  --kx-shadow-xs: 0 1px 1px rgba(0, 0, 0, 0.4);
+  --kx-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.44);
+  --kx-shadow-md: 0 6px 20px rgba(0, 0, 0, 0.54);
+  --kx-shadow-lg: 0 20px 56px rgba(0, 0, 0, 0.64);
+
+  --kx-fx-hi: rgba(255, 255, 255, 0.45);
+  --kx-fx-hi-soft: rgba(255, 255, 255, 0.1);
+  --kx-fx-lo: rgba(0, 0, 0, 0.05);
+
+  --kx-frost-tint-1: rgba(255, 226, 154, 0.14);
+  --kx-frost-tint-2: rgba(120, 120, 120, 0.2);
+  --kx-frost-tint-3: rgba(255, 255, 255, 0.04);
+  --kx-ambient-1: rgba(255, 226, 154, 0.12);
+  --kx-ambient-2: rgba(255, 226, 154, 0.06);
+}

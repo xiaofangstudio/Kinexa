@@ -1,0 +1,944 @@
+/**
+ * 编辑壳样式（M0）。
+ *
+ * 结构：顶栏 → 主体三栏（工具轨｜画布｜右侧面板）→ 时间轴 → 状态栏。
+ * 全程扁平，只吃 tokens.css 的变量；品牌暖黄只落在选中与主按钮上。
+ */
+
+.kx-editor {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--kx-bg);
+  overflow: hidden;
+}
+
+/* ---------- 顶栏 ---------- */
+.kx-editor-top {
+  flex: none;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding: 0 var(--kx-sp-3);
+  background: var(--kx-surface);
+  border-bottom: 1px solid color-mix(in srgb, var(--kx-text) 9%, transparent);
+  box-shadow: inset 0 1px 0 var(--kx-fx-hi-soft);
+}
+
+.kx-doc-title {
+  max-width: 230px;
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  min-width: 0;
+  padding-right: var(--kx-sp-2);
+  border-right: 1px solid var(--kx-border);
+}
+
+.kx-doc-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--kx-fs-sm);
+  font-weight: 500;
+}
+
+.kx-dirty-dot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--kx-r-full);
+  background: var(--kx-accent);
+}
+
+.kx-top-gap {
+  flex: 1;
+  min-width: var(--kx-sp-3);
+}
+
+.kx-top-actions {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.kx-top-divider {
+  flex: none;
+  width: 1px;
+  height: 20px;
+  margin: 0 var(--kx-sp-2);
+  background: var(--kx-border);
+}
+
+.kx-zoom-glyph {
+  font-size: 15px;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--kx-text-2);
+}
+
+.kx-zoom-label {
+  min-width: 44px;
+  text-align: center;
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.kx-zoom-fit {
+  height: 26px;
+  padding: 0 var(--kx-sp-2);
+}
+
+.kx-btn-sm {
+  height: 28px;
+  padding: 0 var(--kx-sp-3);
+  font-size: var(--kx-fs-xs);
+}
+
+/* ---------- 主体 ---------- */
+.kx-editor-main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.kx-center {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 工具轨 ---------- */
+.kx-toolrail {
+  flex: none;
+  width: 148px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--kx-sp-2);
+  background: var(--kx-surface);
+  border-right: 1px solid color-mix(in srgb, var(--kx-text) 9%, transparent);
+  overflow-y: auto;
+}
+
+.kx-rail-cap {
+  padding: var(--kx-sp-1) var(--kx-sp-2) 2px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--kx-text-3);
+}
+
+.kx-tool {
+  width: 100%;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding: 0 var(--kx-sp-2);
+  font-size: var(--kx-fs-sm);
+  color: var(--kx-text-2);
+  border-radius: var(--kx-r-sm);
+  text-align: left;
+}
+
+.kx-tool:hover:not(:disabled) {
+  background: var(--kx-hover);
+  color: var(--kx-text);
+  box-shadow: inset 0 1px 0 var(--kx-fx-hi-soft);
+}
+
+.kx-tool.is-on {
+  color: var(--kx-accent);
+  background: var(--kx-accent-soft);
+  box-shadow:
+    inset 0 1px 0 var(--kx-fx-hi-soft),
+    inset 0 0 0 1px color-mix(in srgb, var(--kx-accent) 18%, transparent);
+}
+
+.kx-tool-label {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kx-tool-key,
+.kx-tool-tag {
+  flex: none;
+  padding: 0 5px;
+  font-size: 10px;
+  line-height: 16px;
+  color: var(--kx-text-3);
+  background: var(--kx-surface-3);
+  border-radius: var(--kx-r-full);
+}
+
+.kx-tool.is-on .kx-tool-key {
+  color: var(--kx-accent);
+  background: color-mix(in srgb, var(--kx-accent) 14%, transparent);
+}
+
+.kx-tool.is-off {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.kx-rail-sep {
+  height: 1px;
+  margin: var(--kx-sp-2) var(--kx-sp-1);
+  background: var(--kx-border);
+}
+
+.kx-rail-spacer {
+  flex: 1;
+  min-height: var(--kx-sp-3);
+}
+
+.kx-swatches {
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding: var(--kx-sp-2);
+  border-top: 1px solid var(--kx-border);
+}
+
+.kx-swatch-label {
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+}
+
+.kx-swatch {
+  width: 26px;
+  height: 26px;
+  margin-left: auto;
+  border: 1px solid var(--kx-border-strong);
+  border-radius: var(--kx-r-xs);
+  box-shadow: var(--kx-shadow-xs), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* ---------- 右侧面板坞 ---------- */
+.kx-dock {
+  flex: none;
+  width: 252px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--kx-surface);
+  border-left: 1px solid color-mix(in srgb, var(--kx-text) 9%, transparent);
+  overflow: hidden;
+}
+
+.kx-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.kx-panel-layers {
+  flex: 1;
+  border-bottom: 1px solid var(--kx-border);
+}
+
+.kx-panel-brush {
+  flex: none;
+}
+
+.kx-panel-head {
+  flex: none;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding: 0 var(--kx-sp-2) 0 var(--kx-sp-3);
+  border-bottom: 1px solid var(--kx-border);
+  color: var(--kx-text-2);
+}
+
+.kx-panel-title {
+  font-size: var(--kx-fs-sm);
+  font-weight: 600;
+  color: var(--kx-text);
+}
+
+.kx-panel-count {
+  padding: 0 6px;
+  font-size: 10px;
+  line-height: 16px;
+  color: var(--kx-text-3);
+  background: var(--kx-surface-3);
+  border-radius: var(--kx-r-full);
+  font-variant-numeric: tabular-nums;
+}
+
+.kx-gap {
+  flex: 1;
+}
+
+.kx-panel-note {
+  font-size: 10px;
+  color: var(--kx-text-3);
+  padding-right: var(--kx-sp-1);
+}
+
+/* ---------- 图层列表 ---------- */
+.kx-layer-list {
+  flex: 1;
+  min-height: 0;
+  margin: 0;
+  padding: var(--kx-sp-1);
+  list-style: none;
+  overflow-y: auto;
+}
+
+.kx-layer {
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  min-height: 42px;
+  padding: 3px var(--kx-sp-1) 3px 6px;
+  border-radius: var(--kx-r-sm);
+  cursor: pointer;
+  transition: background var(--kx-dur-fast) var(--kx-ease);
+}
+
+.kx-layer:hover {
+  background: var(--kx-surface-2);
+}
+
+.kx-layer.is-on {
+  background: var(--kx-accent-soft);
+  box-shadow: inset 2px 0 0 var(--kx-accent);
+}
+
+.kx-layer-thumb {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--kx-border);
+  border-radius: var(--kx-r-xs);
+  background-color: var(--kx-surface-2);
+  background-image:
+    linear-gradient(45deg, var(--kx-checker) 25%, transparent 25%),
+    linear-gradient(-45deg, var(--kx-checker) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, var(--kx-checker) 75%),
+    linear-gradient(-45deg, transparent 75%, var(--kx-checker) 75%);
+  background-size: 8px 8px;
+  background-position:
+    0 0,
+    0 4px,
+    4px -4px,
+    -4px 0;
+}
+
+.kx-layer-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.kx-layer-thumb-empty {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.kx-layer-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--kx-fs-sm);
+  color: var(--kx-text);
+}
+
+.kx-layer-rename {
+  flex: 1;
+  min-width: 0;
+  height: 24px;
+  padding: 0 6px;
+  font-size: var(--kx-fs-sm);
+  background: var(--kx-surface);
+  border: 1px solid var(--kx-accent);
+  border-radius: var(--kx-r-xs);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--kx-accent-ring);
+}
+
+.kx-layer-btn {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  color: var(--kx-text-3);
+  border-radius: var(--kx-r-xs);
+}
+
+.kx-layer-btn:hover {
+  color: var(--kx-text);
+  background: var(--kx-surface-3);
+}
+
+.kx-layer-btn.is-locked {
+  color: var(--kx-accent);
+}
+
+.kx-layer-foot {
+  flex: none;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  padding: 0 var(--kx-sp-2);
+  border-top: 1px solid var(--kx-border);
+}
+
+.kx-layer-opacity {
+  flex: none;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding: 0 var(--kx-sp-3);
+  border-top: 1px solid var(--kx-border);
+}
+
+.kx-opacity-label {
+  flex: none;
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-2);
+}
+
+.kx-opacity-value {
+  flex: none;
+  min-width: 34px;
+  text-align: right;
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 画笔面板 ---------- */
+.kx-brush-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--kx-sp-2) var(--kx-sp-3) var(--kx-sp-3);
+}
+
+.kx-slider-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--kx-sp-2);
+  margin-top: var(--kx-sp-1);
+}
+
+.kx-slider-label {
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-2);
+}
+
+.kx-slider-value {
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.kx-color-row {
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding-top: var(--kx-sp-2);
+}
+
+.kx-color {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--kx-border-strong);
+  border-radius: var(--kx-r-xs);
+  box-shadow: var(--kx-shadow-xs);
+}
+
+.kx-color.is-on {
+  box-shadow:
+    0 0 0 2px var(--kx-accent),
+    var(--kx-shadow-xs);
+  border-color: var(--kx-surface);
+}
+
+.kx-color-custom {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 24px;
+  padding: 0 8px 0 4px;
+  margin-left: auto;
+  font-size: 11px;
+  color: var(--kx-text-2);
+  background: var(--kx-surface-2);
+  border: 1px solid var(--kx-border);
+  border-radius: var(--kx-r-full);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.kx-color-custom input {
+  width: 14px;
+  height: 14px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.kx-brush-note {
+  margin-top: var(--kx-sp-2);
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+}
+
+/* ---------- 时间轴 ---------- */
+.kx-timeline {
+  flex: none;
+  height: 118px;
+  display: flex;
+  flex-direction: column;
+  background: var(--kx-surface);
+  border-top: 1px solid color-mix(in srgb, var(--kx-text) 9%, transparent);
+}
+
+.kx-timeline-head {
+  flex: none;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding: 0 var(--kx-sp-2) 0 var(--kx-sp-3);
+  border-bottom: 1px solid var(--kx-border);
+}
+
+.kx-timeline-title {
+  font-size: var(--kx-fs-sm);
+  font-weight: 600;
+}
+
+.kx-timeline-meta {
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.kx-tl-btn {
+  height: 24px;
+  padding: 0 8px;
+  font-size: var(--kx-fs-xs);
+}
+
+.kx-tl-tag {
+  padding: 0 4px;
+  font-size: 9px;
+  line-height: 14px;
+  color: var(--kx-text-3);
+  background: var(--kx-surface-3);
+  border-radius: var(--kx-r-full);
+}
+
+.kx-tl-play {
+  width: 26px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--kx-text-3);
+  border-radius: var(--kx-r-xs);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.kx-timeline-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+}
+
+.kx-timeline-label {
+  flex: none;
+  width: 148px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  padding: 0 var(--kx-sp-3);
+  border-right: 1px solid var(--kx-border);
+}
+
+.kx-timeline-label span:first-child {
+  font-size: var(--kx-fs-sm);
+  color: var(--kx-text);
+}
+
+.kx-timeline-label-sub {
+  font-size: 10px;
+  color: var(--kx-text-3);
+}
+
+.kx-frames {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 var(--kx-sp-2);
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.kx-frame {
+  flex: none;
+  width: 32px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-2);
+  background: var(--kx-surface-2);
+  border: 1px solid var(--kx-border);
+  border-radius: var(--kx-r-xs);
+  font-variant-numeric: tabular-nums;
+  transition:
+    background var(--kx-dur-fast) var(--kx-ease),
+    border-color var(--kx-dur-fast) var(--kx-ease),
+    color var(--kx-dur-fast) var(--kx-ease);
+}
+
+.kx-frame:hover {
+  border-color: var(--kx-border-strong);
+  color: var(--kx-text);
+}
+
+.kx-frame.is-on {
+  color: var(--kx-accent);
+  background: var(--kx-accent-soft);
+  border-color: var(--kx-accent);
+  font-weight: 600;
+}
+
+.kx-frame-add {
+  margin-left: var(--kx-sp-1);
+  color: var(--kx-text-3);
+  background: transparent;
+  border-style: dashed;
+}
+
+.kx-frame-add:hover {
+  color: var(--kx-accent);
+  border-color: var(--kx-accent);
+}
+
+/* ---------- 状态栏 ---------- */
+.kx-statusbar {
+  flex: none;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-4);
+  padding: 0 var(--kx-sp-3);
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+  background: var(--kx-surface-2);
+  border-top: 1px solid var(--kx-border);
+}
+
+.kx-status-hint {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--kx-text-2);
+}
+
+.kx-status-item {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 提示 ---------- */
+.kx-errorbar {
+  position: absolute;
+  left: 50%;
+  bottom: 52px;
+  z-index: 60;
+  max-width: min(620px, 82%);
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-2);
+  padding: var(--kx-sp-2) var(--kx-sp-2) var(--kx-sp-2) var(--kx-sp-4);
+  font-size: var(--kx-fs-sm);
+  color: var(--kx-on-danger);
+  background: var(--kx-danger);
+  border-radius: var(--kx-r-full);
+  box-shadow: var(--kx-shadow-md);
+  transform: translateX(-50%);
+  animation: kx-toast-in var(--kx-dur) var(--kx-ease);
+}
+
+.kx-errorbar span {
+  min-width: 0;
+  word-break: break-word;
+}
+
+.kx-errorbar-close {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  color: inherit;
+  border-radius: var(--kx-r-full);
+  opacity: 0.8;
+}
+
+.kx-errorbar-close:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.kx-toast {
+  position: absolute;
+  left: 50%;
+  bottom: 52px;
+  z-index: 50;
+  padding: var(--kx-sp-2) var(--kx-sp-5);
+  font-size: var(--kx-fs-sm);
+  color: var(--kx-toast-ink);
+  background: var(--kx-toast-bg);
+  border-radius: var(--kx-r-full);
+  box-shadow: var(--kx-shadow-md);
+  transform: translateX(-50%);
+  animation: kx-toast-in var(--kx-dur) var(--kx-ease);
+  pointer-events: none;
+}
+
+@keyframes kx-toast-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+}
+
+/* ---------- 弹窗内容 ---------- */
+.kx-about-row {
+  display: flex;
+  align-items: center;
+  gap: var(--kx-sp-4);
+  padding: var(--kx-sp-2) 0 var(--kx-sp-4);
+}
+
+.kx-about-name {
+  font-size: var(--kx-fs-xl);
+  font-weight: 600;
+  color: var(--kx-text);
+  line-height: 1.3;
+}
+
+.kx-about-ver {
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+}
+
+.kx-about-copy {
+  margin-bottom: var(--kx-sp-2);
+  color: var(--kx-text-2);
+  line-height: 1.8;
+}
+
+.kx-keys {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.kx-key-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kx-sp-4);
+  padding: var(--kx-sp-2);
+  border-bottom: 1px solid var(--kx-border);
+}
+
+.kx-key-row:last-child {
+  border-bottom: none;
+}
+
+.kx-key-label {
+  color: var(--kx-text);
+}
+
+.kx-key-cap {
+  flex: none;
+  padding: 1px 8px;
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-2);
+  background: var(--kx-surface-2);
+  border: 1px solid var(--kx-border);
+  border-radius: var(--kx-r-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 开关态 ---------- */
+.kx-tl-btn.is-on {
+  color: var(--kx-accent);
+  background: var(--kx-accent-soft);
+  border-color: color-mix(in srgb, var(--kx-accent) 34%, transparent);
+}
+
+/* ---------- 界面设置 ---------- */
+.kx-set-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.kx-set-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kx-sp-4);
+  padding: var(--kx-sp-3) 0;
+  border-bottom: 1px solid var(--kx-border);
+}
+
+.kx-set-row:first-child {
+  padding-top: 0;
+}
+
+.kx-set-row:last-child {
+  border-bottom: none;
+}
+
+.kx-set-copy {
+  min-width: 0;
+}
+
+.kx-set-title {
+  font-size: var(--kx-fs-md);
+  font-weight: 600;
+  color: var(--kx-text);
+  line-height: 1.4;
+}
+
+.kx-set-note {
+  margin-top: 2px;
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-3);
+  line-height: 1.5;
+}
+
+.kx-seg {
+  flex: none;
+  display: flex;
+  padding: 2px;
+  background: var(--kx-surface-2);
+  border: 1px solid var(--kx-border);
+  border-radius: var(--kx-r-sm);
+}
+
+.kx-seg-btn {
+  height: 28px;
+  padding: 0 var(--kx-sp-3);
+  font-size: var(--kx-fs-xs);
+  color: var(--kx-text-2);
+  border-radius: var(--kx-r-xs);
+}
+
+.kx-seg-btn:hover {
+  color: var(--kx-text);
+}
+
+.kx-seg-btn.is-on {
+  color: var(--kx-accent);
+  background: var(--kx-surface);
+  box-shadow: var(--kx-shadow-xs), inset 0 0 0 1px var(--kx-accent-soft);
+  font-weight: 600;
+}
+
+.kx-set-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--kx-sp-3);
+  padding-top: var(--kx-sp-4);
+  margin-top: var(--kx-sp-2);
+  border-top: 1px solid var(--kx-border);
+}
+
+/* ---------- 轻磨砂：只给面板，不给画布 ---------- */
+[data-frosted="on"] .kx-editor-top,
+[data-frosted="on"] .kx-toolrail,
+[data-frosted="on"] .kx-panel,
+[data-frosted="on"] .kx-timeline,
+[data-frosted="on"] .kx-statusbar {
+  background: color-mix(in srgb, var(--kx-surface) 66%, transparent);
+  -webkit-backdrop-filter: blur(22px) saturate(1.4);
+  backdrop-filter: blur(22px) saturate(1.4);
+}
+
+[data-frosted="on"] .kx-editor {
+  background:
+    radial-gradient(
+      760px 420px at 6% -8%,
+      var(--kx-frost-tint-1),
+      transparent 62%
+    ),
+    radial-gradient(
+      680px 460px at 100% 12%,
+      var(--kx-frost-tint-2),
+      transparent 64%
+    ),
+    radial-gradient(
+      900px 520px at 46% 108%,
+      var(--kx-frost-tint-3),
+      transparent 62%
+    ),
+    var(--kx-bg);
+}
+
+/* ---------- 紧凑密度 ---------- */
+[data-density="compact"] {
+  --kx-h-ctl: 28px;
+  --kx-h-ctl-lg: 34px;
+}
+
+[data-density="compact"] .kx-editor-top {
+  height: 36px;
+}
+
+[data-density="compact"] .kx-tool {
+  min-height: 32px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+[data-density="compact"] .kx-timeline-head {
+  height: 34px;
+}
+
+[data-density="compact"] .kx-statusbar {
+  height: 24px;
+}
+

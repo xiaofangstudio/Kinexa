@@ -1,0 +1,28 @@
+# ---- 依赖与构建产物 ----
+node_modules/
+dist/
+target/
+scaffold/src-tauri/target/
+
+# ---- 本地打包与构建依赖（体积过大，走 Release 分发）----
+base/
+build/
+tools/
+
+# ---- 底座参考仓库（只读参考，仅保留说明与克隆脚本）----
+reference/*
+!reference/README.md
+!reference/clone-animation.ps1
+
+# ---- 构建 / 安装日志 ----
+*.log
+
+# ---- 临时测试文件 ----
+.m0-test*.kin
+.m0-transparent.kin
+
+# ---- 系统与编辑器 ----
+.DS_Store
+Thumbs.db
+*.local
+.vite/
