@@ -26,3 +26,7 @@ reference/*
 Thumbs.db
 *.local
 .vite/
+
+# ---- 开发过程截图侧车与测试产物 ----
+docs/screenshots/*.txt
+docs/_test.*
